@@ -32,7 +32,7 @@ const CourseDetail = () => {
   useEffect(() => {
     const fetchCourse = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:5001/api/courses/${id}`);
+        const { data } = await axios.get(`/api/courses/${id}`);
         setCourse(data);
         // Load saved note if exists
         const savedNote = localStorage.getItem(`note_${id}_${activeModule}`);

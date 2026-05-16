@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
       if (token) {
         try {
           const config = { headers: { Authorization: `Bearer ${token}` } };
-          const { data } = await axios.get('http://localhost:5001/api/auth/me', config);
+          const { data } = await axios.get('/api/auth/me', config);
           setUser(data);
         } catch (error) {
           console.error('Error fetching user', error);
@@ -26,13 +26,13 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-    const { data } = await axios.post('http://localhost:5001/api/auth/login', { email, password });
+    const { data } = await axios.post('/api/auth/login', { email, password });
     localStorage.setItem('token', data.token);
     setUser(data);
   };
 
   const register = async (name, email, password) => {
-    const { data } = await axios.post('http://localhost:5001/api/auth/register', { name, email, password });
+    const { data } = await axios.post('/api/auth/register', { name, email, password });
     localStorage.setItem('token', data.token);
     setUser(data);
   };

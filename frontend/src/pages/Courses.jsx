@@ -10,7 +10,7 @@ const Courses = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const { data } = await axios.get('http://localhost:5001/api/courses');
+        const { data } = await axios.get('/api/courses');
         setCourses(data);
       } catch (error) {
         console.error('Error fetching courses', error);

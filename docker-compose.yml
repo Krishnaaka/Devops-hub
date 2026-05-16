@@ -3,8 +3,6 @@ services:
     image: mongo:7
     container_name: devopshub-mongo
     restart: unless-stopped
-    ports:
-      - "27017:27017"
     volumes:
       - mongo-data:/data/db
 
@@ -13,8 +11,6 @@ services:
     container_name: devopshub-backend
     restart: unless-stopped
     env_file: .env
-    ports:
-      - "5001:5000"
     volumes:
       - ./backend:/app
       - /app/node_modules
@@ -27,12 +23,22 @@ services:
     build: ./frontend
     container_name: devopshub-frontend
     restart: unless-stopped
-    ports:
-      - "5174:5173"
     volumes:
       - ./frontend:/app
       - /app/node_modules
     depends_on:
+      - backend
+
+  nginx:
+    image: nginx:alpine
+    container_name: devopshub-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - frontend
       - backend
 
 volumes:
